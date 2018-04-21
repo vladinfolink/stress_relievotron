@@ -18,6 +18,7 @@ counter++;
 makeTemp()[1].forEach((o) => {
 	o.addEventListener('mouseover', () => {
 		o.classList.toggle('transparent');
+		if (cleared) {o.classList.toggle('red')};
 	});
 });
  g = setInterval(function () {
@@ -41,5 +42,11 @@ let freezeReload = document.getElementById('freeze');
 freezeReload.addEventListener(`click`, function() {
 	if (!cleared) {clearInterval(g);cleared = !cleared;freezeReload.innerHTML = 'reload';
 	} else {window.location.reload();}
+});
+let unfreeze = document.getElementById('unfreeze');
+unfreeze.addEventListener('click', (e) => {
+  if (cleared) {
+  	omni();
+  };
 });
 
