@@ -10,7 +10,7 @@ const makeTemp = () => {
 	return [main_btns, allBtns];
 }; 
 // functia de mai sus returneaza un array cu 2 elemente, main_btns (un div in care)
-// o sa fie generate toate butoanele, si allBtns (butoanele)
+// o sa fie generate toate butoanele, si allBtns (butoanele care inca nu au fost generate)
 let g; 
 // g  = interval declarat mai jos, nush de ce da undefined daca nu o declar in global scope
 
