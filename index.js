@@ -4,6 +4,8 @@ const makeTemp = () => {
 	return [main_btns, allBtns];
 }; 
 let g;
+let frozen = false;
+let red = false;
 // (scope)
 
 let btnTracker = 0, secondTracker = 0, lennie = 40;
@@ -18,7 +20,9 @@ counter++;
 makeTemp()[1].forEach((o) => {
 	o.addEventListener('mouseover', () => {
 		o.classList.toggle('transparent');
-		if (cleared) {o.classList.toggle('red')};
+		if (red) {
+			o.classList.toggle('red')
+		};
 	});
 });
  g = setInterval(function () {
@@ -34,19 +38,40 @@ makeTemp()[1].forEach((o) => {
 		btnTracker = 0, secondTracker = 0;
 	}
 
-}, 20);
+}, 40);
 };
 omni();
-let cleared = false;
-let freezeReload = document.getElementById('freeze');
-freezeReload.addEventListener(`click`, function() {
-	if (!cleared) {clearInterval(g);cleared = !cleared;freezeReload.innerHTML = 'reload';
-	} else {window.location.reload();}
+
+let button = document.getElementById('freeze');
+button.addEventListener(`click`, function() {
+	if (button.innerHTML == 'freeze'){
+		clearInterval(g);
+	 	button.innerHTML = 'unfreeze';
+		red = !red;
+	} else if (button.innerHTML == 'unfreeze') {
+		clearInterval(g);
+		button.innerHTML = 'freeze';
+		omni();
+		red = !red;
+	};
 });
-let unfreeze = document.getElementById('unfreeze');
-unfreeze.addEventListener('click', (e) => {
-  if (cleared) {
-  	omni();
-  };
+
+
+button.addEventListener('mousedown', function(e) { 
+	let reloadCounter = 0;
+	let reloadG = setInterval(() => {
+	  reloadCounter ++;
+	  console.log(reloadCounter);
+	}, 100);
+	button.addEventListener('mouseup', (e) => {
+	  if (reloadCounter >= 10) {
+	  	window.location.reload();
+	  } else {
+	  	clearInterval(reloadG);
+	  	reloadCounter = 0; 
+	  }
+	});
 });
+
+
 
